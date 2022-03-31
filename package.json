@@ -2,9 +2,9 @@
   "name": "soytechno-api-js",
   "version": "1.0.0",
   "description": "Soytechno API with Node.js, Express, MongoDB",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "nodemon server.js"
+    "test": "jest --runInBand"
   },
   "author": "",
   "license": "ISC",
