@@ -1,5 +1,5 @@
 
-const registerUser = () => {
+const registerUser = () => async () => {
     
 }
 
