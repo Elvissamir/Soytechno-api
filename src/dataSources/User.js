@@ -27,8 +27,6 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        minlength: userRules.passwordMinChars,
-        maxlength: userRules.passwordMaxChars,
         required: true
     }
 })
