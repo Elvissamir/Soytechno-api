@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { registerUser } = require('../interactors/index')
+const { registerUser } = require('../../interactors/index')
 
 router.post('/', async (req, res) => {
     const data = await registerUser(req.body)

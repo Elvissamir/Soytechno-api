@@ -1,5 +1,5 @@
 const { userEndpoint, testEndpoint } = require('../endpoints/index')
-const userController = require('../controllers/users')
+const userController = require('../controllers/users/users')
 const testController = require('../controllers/state')
 const errorController = require('../middleware/error')
 
