@@ -1,6 +1,6 @@
 const endpoints = {
-    testRoute: '/api/test',
-    userRoute: '/api/users'
+    testEndpoint: '/api/test',
+    userEndpoint: '/api/users'
 }
 
 module.exports = endpoints

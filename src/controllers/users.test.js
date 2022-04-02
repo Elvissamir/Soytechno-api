@@ -2,7 +2,7 @@ const app = require('../app')
 const bcrypt = require('bcrypt')
 const request = require('supertest')
 const dbTestHandler = require('../utils/test-utils/dbTestHandler')
-const { userRoute } = require('../endpoints')
+const { userEndpoint } = require('../endpoints')
 const User = require('../dataSources/User')
 
 describe('Users Controller', () => {    
@@ -17,6 +17,10 @@ describe('Users Controller', () => {
     describe('Post / - Register User', () => {
         let userData
 
+        const sendPostRequest = (endpoint, data) => {
+            return request(app).post(endpoint).send(data)
+        }
+
         beforeEach(() => {
             userData = {
                 first_name: 'fname',
@@ -27,11 +31,11 @@ describe('Users Controller', () => {
             }
         })
 
-        it('Should register a user', async () => {
+        it('Should register a user and return the created user', async () => {
             const userCountBefore = await User.count()
             expect(userCountBefore).toBe(0) 
 
-            const response = await request(app).post(userRoute).send(userData)
+            const response = await sendPostRequest(userEndpoint, userData)
 
             const usersCountAfter = await User.count()
             expect(usersCountAfter).toBe(1)
@@ -45,12 +49,21 @@ describe('Users Controller', () => {
         })
 
         it('Should hash the password before saving the data', async () => {
-            await request(app).post(userRoute).send(userData)
+            await sendPostRequest(userEndpoint, userData)
 
             const userInDB = await User.findOne({ first_name: userData.first_name })
             
             const result = await bcrypt.compare(userData.password, userInDB.password)
             expect(result).toBe(true)    
         })
+
+        it('Should add the auth token to the response headers', async () => {
+            const response = await sendPostRequest(userEndpoint, userData)
+
+            
+
+            expect(response.header['x-auth-token']).toBeDefined()
+        })
     })
 })
+
