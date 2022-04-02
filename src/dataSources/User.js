@@ -1,5 +1,7 @@
 const userRules = require('../rules/userRules')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 const { Schema, model } = require('mongoose')
 
 const userSchema = new Schema({
@@ -37,6 +39,19 @@ userSchema.statics.hashPassword = async function (password) {
     const hashedPassword = await bcrypt.hash(password, salt)
 
     return hashedPassword
+}
+
+userSchema.methods.generateAuthToken = function () {
+    const data = {
+        _id: this._id,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email
+    }
+
+    const secret = config.get('jwtPrivateKey')
+    
+    return jwt.sign(data, secret)
 }
 
 const User = model('User', userSchema)

@@ -1,5 +1,6 @@
 const app = require('../app')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const request = require('supertest')
 const dbTestHandler = require('../utils/test-utils/dbTestHandler')
 const { userEndpoint } = require('../endpoints')
@@ -60,9 +61,10 @@ describe('Users Controller', () => {
         it('Should add the auth token to the response headers', async () => {
             const response = await sendPostRequest(userEndpoint, userData)
 
-            
+            console.log(process.env.JWT_SECRET_KEY)
 
             expect(response.header['x-auth-token']).toBeDefined()
+            expect(response.header['x-auth-token']).toBe()
         })
     })
 })
