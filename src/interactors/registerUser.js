@@ -10,7 +10,13 @@ const registerUser = (UserDataSource) => async (userData) => {
         password: hashedPassword,
         email: userData.email
     })
-    return UserResource(user)
+
+    const token = user.generateAuthToken()
+
+    return {
+        user: UserResource(user),
+        token
+    }
 }
 
 module.exports = registerUser

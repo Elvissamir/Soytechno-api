@@ -2,9 +2,12 @@ const router = require('express').Router()
 const { registerUser } = require('../interactors/index')
 
 router.post('/', async (req, res) => {
-    const user = await registerUser(req.body)
+    const data = await registerUser(req.body)
 
-    return res.send(user)
+    return res
+            .header('x-auth-token', data.token)
+            .header('access-control-expose-headers', 'x-auth-token')
+            .send(data.user)
 })
 
 module.exports = router
