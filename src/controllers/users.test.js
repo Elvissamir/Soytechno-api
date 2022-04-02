@@ -16,7 +16,6 @@ describe('Users Controller', () => {
 
     describe('Post / - Register User', () => {
         test('Guests can register', async () => {
-            // having the new userData
             const userData = {
                 first_name: 'fname',
                 last_name: 'lname',
@@ -25,21 +24,20 @@ describe('Users Controller', () => {
                 password: 'password'
             }
             
-            // expect users count to be 0
             const userCountBefore = await User.count()
             expect(userCountBefore).toBe(0) 
 
-            // send request to endpoint with userData
-            const response = request(app).post(userRoute).send(userData)
+            const response = await request(app).post(userRoute).send(userData)
 
-            // expect users count to be 1
             const usersCountAfter = await User.count()
-
-            // expect response data to be a user
             expect(usersCountAfter).toBe(1)
 
-            // expect returned user has the same values as userData
-            expect(response.data[0].first_name).toBe(userData.first_name)
+            expect(response.status).toBe(200)
+            expect(response.body).toHaveProperty('first_name', userData.first_name)
+            expect(response.body).toHaveProperty('last_name', userData.last_name)
+            expect(response.body).toHaveProperty('email', userData.email)
+            expect(response.body).not.toHaveProperty('ci')
+            expect(response.body).not.toHaveProperty('password')
         })
     })
 })

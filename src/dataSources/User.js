@@ -11,7 +11,7 @@ const userSchema = new Schema({
     last_name: {
         type: String,
         minlength: userRules.lnameMinChars,
-        minlength: userRules.lnameMaxChars,
+        maxlength: userRules.lnameMaxChars,
         required: true
     },
     ci: {
