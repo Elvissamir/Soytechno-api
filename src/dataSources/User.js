@@ -1,4 +1,5 @@
 const userRules = require('../rules/userRules')
+const bcrypt = require('bcrypt')
 const { Schema, model } = require('mongoose')
 
 const userSchema = new Schema({
@@ -30,6 +31,13 @@ const userSchema = new Schema({
         required: true
     }
 })
+
+userSchema.statics.hashPassword = async function (password) {
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    return hashedPassword
+}
 
 const User = model('User', userSchema)
 
