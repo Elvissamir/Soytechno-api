@@ -15,7 +15,7 @@ describe('Users Controller', () => {
     })
 
     describe('Post / - Register User', () => {
-        test('Guests can register', async () => {
+        it('Should register a user', async () => {
             const userData = {
                 first_name: 'fname',
                 last_name: 'lname',

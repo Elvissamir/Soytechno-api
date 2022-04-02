@@ -1,5 +1,4 @@
-const UserResource = require('../resources/UserResource')
-
+const UserResource = require('../resources/userResource')
 
 const registerUser = (UserDataSource) => async (userData) => {
     const user = await UserDataSource.create(userData)
