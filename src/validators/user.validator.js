@@ -2,6 +2,16 @@ const rules = require('../rules/userRules')
 const Joi = require('joi')
 const passwordComplexity = require('joi-password-complexity')
 
+const passwordOptions = {
+    min: rules.passwordMinChars,
+    max: rules.passwordMaxChars,
+    lowerCase: rules.passwordLowerCase,
+    upperCase: rules.passwordUpperCase,
+    numeric: rules.passwordNumeric,
+    symbol: rules.passwordSymbol,
+    requirementCount: 5
+}
+
 const schema = Joi.object({
     first_name: Joi.string()
         .min(rules.fnameMinChars)
@@ -28,10 +38,23 @@ const schema = Joi.object({
         .label('Email'),
     
     password: Joi
+        .string()
         .required()
         .label('Password')
 })
 
 module.exports = function (userData) {
-    return schema.validate(userData)
+    const validation = schema.validate(userData)
+    
+    if (validation.error)
+        return validation
+
+    const validPassword = passwordComplexity(passwordOptions, 'Password').validate(validation.value.password)
+    
+    if (validPassword.error) {
+        validation.error = {details: [{ message: '' }]}
+        validation.error.details[0].message = validPassword.error.details[0].message
+    }
+
+    return validation
 }

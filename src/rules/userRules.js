@@ -7,7 +7,11 @@ const userRules = {
     ciMinChars: 7,
     emailMaxChars: 255,
     passwordMaxChars: 20,
-    passwordMinChars: 6
+    passwordMinChars: 6,
+    passwordLowerCase: 1,
+    passwordUpperCase: 1,
+    passwordSymbol: 1,
+    passwordNumeric: 1,
 }
 
 module.exports = userRules

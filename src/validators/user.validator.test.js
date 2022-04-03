@@ -1,4 +1,5 @@
 const rules = require('../rules/userRules')
+const passwordComplexity = require('joi-password-complexity')
 const validateUser = require('../validators/user.validator')
 
 describe('User Validator', () => {
@@ -10,7 +11,7 @@ describe('User Validator', () => {
             last_name: 'lname',
             ci: '45546345',
             email: 'user@mail.com',
-            password: 'password',
+            password: 'Password1_',
         }
     })
 
@@ -195,5 +196,48 @@ describe('User Validator', () => {
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes("Password")).toBe(true)
         expect(result.error.details[0].message.includes('required')).toBe(true)
+    })
+
+    it('Should validate the password is a string', () => {
+        userData.password = 0
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Password")).toBe(true)
+        expect(result.error.details[0].message.includes('string')).toBe(true)
+    })
+
+    it('Should validate the password has at least 1 uppercase character', () => {
+        userData.password = 'password'
+
+        const result = validateUser(userData)
+
+        console.log(result)
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Password")).toBe(true)
+        expect(result.error.details[0].message.includes('upper-cased')).toBe(true)
+    })
+
+    it('Should validate the password has at least 1 number character', () => {
+        userData.password = 'Password'
+
+        const result = validateUser(userData)
+
+        console.log(result)
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Password")).toBe(true)
+        expect(result.error.details[0].message.includes('number')).toBe(true)
+    })
+
+    it('Should validate the password has at least 1 symbol character', () => {
+        userData.password = 'Password1'
+
+        const result = validateUser(userData)
+
+        console.log(result)
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Password")).toBe(true)
+        expect(result.error.details[0].message.includes('symbol')).toBe(true)
     })
 })
