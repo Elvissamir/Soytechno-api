@@ -12,7 +12,7 @@ describe('Post / - Register User', () => {
         return request(app).post(endpoint).send(data)
     }
 
-    beforeEach(() => {
+    beforeEach(async () => {
         userData = {
             first_name: 'fname',
             last_name: 'lname',

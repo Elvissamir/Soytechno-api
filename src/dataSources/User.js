@@ -9,23 +9,27 @@ const userSchema = new Schema({
         type: String, 
         minlength: userRules.fnameMinChars,
         maxlength: userRules.fnameMaxChars,
+        trim: true,
         required: true 
     },
     last_name: {
         type: String,
         minlength: userRules.lnameMinChars,
         maxlength: userRules.lnameMaxChars,
+        trim: true,
         required: true
     },
     ci: {
         type: String,
         minlength: userRules.ciMinChars,
         maxlength: userRules.ciMaxChars,
+        trim: true,
         required: true
     },
     email: {
         type: String,
         maxlength: userRules.emailMaxChars,
+        trim: true,
         required: true
     },
     password: {
