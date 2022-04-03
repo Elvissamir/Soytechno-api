@@ -8,8 +8,6 @@ router.post('/', async (req, res) => {
     // if error 
     // send error
 
-    await Promise.reject('Something failed')
-
     //res.send("Hola")
     
     // create the new user
