@@ -19,11 +19,11 @@ describe('User Validator', () => {
         const { first_name, last_name, ci, email, password } = userData
 
         expect(result).toBeDefined()
-        expect(result).toHaveProperty('first_name', first_name)
-        expect(result).toHaveProperty('last_name', last_name)
-        expect(result).toHaveProperty('ci', ci)
-        expect(result).toHaveProperty('email', email)
-        expect(result).toHaveProperty('password', password)
+        expect(result.value).toHaveProperty('first_name', first_name)
+        expect(result.value).toHaveProperty('last_name', last_name)
+        expect(result.value).toHaveProperty('ci', ci)
+        expect(result.value).toHaveProperty('email', email)
+        expect(result.value).toHaveProperty('password', password)
         expect(result).not.toHaveProperty('error')
     })
 
@@ -177,5 +177,23 @@ describe('User Validator', () => {
         expect(result.error.details[0].message.includes('less than')).toBe(true)
     })
 
-    
+    it('Should validate the email format is valid', () => {
+        userData.email = 'notanEmail'
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Email")).toBe(true)
+        expect(result.error.details[0].message.includes('valid')).toBe(true)
+    })
+
+    it('Should validate the password is required', () => {
+        delete userData.password
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Password")).toBe(true)
+        expect(result.error.details[0].message.includes('required')).toBe(true)
+    })
 })

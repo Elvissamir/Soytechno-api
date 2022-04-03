@@ -23,8 +23,13 @@ const schema = Joi.object({
 
     email: Joi.string()
         .max(rules.emailMaxChars)
+        .email()
         .required()
-        .label('Email')
+        .label('Email'),
+    
+    password: Joi
+        .required()
+        .label('Password')
 })
 
 module.exports = function (userData) {
