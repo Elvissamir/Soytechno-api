@@ -1,23 +1,21 @@
 const router = require('express').Router()
 const { registerUser } = require('../../interactors/index')
+const validateUser = require('../../validators/user.validator')
 
 router.post('/', async (req, res) => {
 
-    // Check if valid
-    // if valid then continue
-    // if error 
-    // send error
-
-    //res.send("Hola")
+    const { error } = validateUser(req.body)
+    if (error) {
+        console.log(error.details[0].message)
+        return res.status(400).send(error.details[0].message)
+    }
     
-    // create the new user
-    // const data = await registerUser(req.body)
+    const data = await registerUser(req.body)
     
-    // return the user and the token in the headers
-    // return res
-    //         .header('x-auth-token', data.token)
-    //         .header('access-control-expose-headers', 'x-auth-token')
-    //         .send(data.user)
+    return res
+            .header('x-auth-token', data.token)
+            .header('access-control-expose-headers', 'x-auth-token')
+            .send(data.user)
 })
 
 module.exports = router

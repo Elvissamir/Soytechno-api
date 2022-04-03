@@ -18,7 +18,7 @@ describe('Post / - Register User', () => {
             last_name: 'lname',
             ci: '25456563',
             email: 'user@mail.com',
-            password: 'password'
+            password: 'Password1_'
         }
 
         await dbTestHandler.startAndConnect()
@@ -66,7 +66,12 @@ describe('Post / - Register User', () => {
         expect(response.header['access-control-expose-headers']).toBe('x-auth-token')
     })
 
-    it('Should ', async () => {
-        
+    it('Should return 400 if the data is invalid', async () => {
+        delete userData.first_name
+
+        const response = await sendPostRequest(userEndpoint, userData)
+
+        expect(response.status).toBe(400)
+        expect(response.text.includes('First name')).toBe(true)
     })
 })
