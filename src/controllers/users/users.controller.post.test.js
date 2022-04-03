@@ -65,4 +65,8 @@ describe('Post / - Register User', () => {
         expect(response.header['access-control-expose-headers']).toBeDefined()
         expect(response.header['access-control-expose-headers']).toBe('x-auth-token')
     })
+
+    it('Should ', async () => {
+        
+    })
 })

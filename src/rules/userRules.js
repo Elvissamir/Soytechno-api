@@ -10,7 +10,7 @@ const userRules = {
     passwordMinChars: 6,
     passwordLowerCase: 1,
     passwordUpperCase: 1,
-    passwordSymbol: 1,
+    passwordSymbol: 1, 
     passwordNumeric: 1,
 }
 

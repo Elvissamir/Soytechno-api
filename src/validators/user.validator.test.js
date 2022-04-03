@@ -213,7 +213,6 @@ describe('User Validator', () => {
 
         const result = validateUser(userData)
 
-        console.log(result)
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes("Password")).toBe(true)
         expect(result.error.details[0].message.includes('upper-cased')).toBe(true)
@@ -224,7 +223,6 @@ describe('User Validator', () => {
 
         const result = validateUser(userData)
 
-        console.log(result)
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes("Password")).toBe(true)
         expect(result.error.details[0].message.includes('number')).toBe(true)
@@ -235,7 +233,6 @@ describe('User Validator', () => {
 
         const result = validateUser(userData)
 
-        console.log(result)
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes("Password")).toBe(true)
         expect(result.error.details[0].message.includes('symbol')).toBe(true)
