@@ -146,4 +146,36 @@ describe('User Validator', () => {
         expect(result.error.details[0].message.includes("CI")).toBe(true)
         expect(result.error.details[0].message.includes("at least")).toBe(true)
     })
+
+    it('Should validate the email is required', () => {
+        delete userData.email
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Email")).toBe(true)
+        expect(result.error.details[0].message.includes('required')).toBe(true)
+    })
+
+    it('Should validate the email is a string', () => {
+        userData.email = 0
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Email")).toBe(true)
+        expect(result.error.details[0].message.includes('string')).toBe(true)
+    })
+
+    it('Should validate the email has less or equal than the max allowed chars', () => {
+        userData.email = new Array(rules.emailMaxChars + 2).join('2')
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Email")).toBe(true)
+        expect(result.error.details[0].message.includes('less than')).toBe(true)
+    })
+
+    
 })

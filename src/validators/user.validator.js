@@ -19,7 +19,12 @@ const schema = Joi.object({
         .min(rules.ciMinChars)
         .max(rules.ciMaxChars)
         .required()
-        .label('CI')
+        .label('CI'),
+
+    email: Joi.string()
+        .max(rules.emailMaxChars)
+        .required()
+        .label('Email')
 })
 
 module.exports = function (userData) {
