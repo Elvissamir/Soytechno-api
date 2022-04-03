@@ -66,4 +66,44 @@ describe('User Validator', () => {
         expect(result.error.details[0].message.includes("First name")).toBe(true)
         expect(result.error.details[0].message.includes("at least")).toBe(true)
     })
+
+    it('Should validate the last name is required', () => {
+        delete userData.last_name
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Last name")).toBe(true)
+        expect(result.error.details[0].message.includes('required')).toBe(true)
+    })
+
+    it('Should validate the last name is a string', () => {
+        userData.last_name = 0
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Last name")).toBe(true)
+        expect(result.error.details[0].message.includes('string')).toBe(true)
+    })
+
+    it('Should validate the last name has less or equal than the max allowed chars', () => {
+        userData.last_name = new Array(rules.lnameMaxChars + 2).join('a')
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Last name")).toBe(true)
+        expect(result.error.details[0].message.includes('less than')).toBe(true)
+    })
+
+    it('Should validate the last name has more than the min allowed chars', () => {
+        userData.last_name = new Array(rules.fnameMinChars).join('a')
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Last name")).toBe(true)
+        expect(result.error.details[0].message.includes("at least")).toBe(true)
+    })
 })

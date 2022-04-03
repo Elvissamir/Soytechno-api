@@ -8,6 +8,12 @@ const schema = Joi.object({
         .max(rules.fnameMaxChars)
         .required()
         .label('First name'),
+        
+    last_name: Joi.string()
+        .min(rules.lnameMinChars)
+        .max(rules.lnameMaxChars)
+        .required()
+        .label('Last name')
 })
 
 module.exports = function (userData) {
