@@ -31,9 +31,39 @@ describe('User Validator', () => {
         delete userData.first_name
 
         const result = validateUser(userData)
-        
+
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes("First name"))
-        expect(result.error.details[0].message.includes("required"))
+        expect(result.error.details[0].message.includes("First name")).toBe(true)
+        expect(result.error.details[0].message.includes('required')).toBe(true)
+    })
+
+    it('Should validate the first name is a string', () => {
+        userData.first_name = 0
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("First name")).toBe(true)
+        expect(result.error.details[0].message.includes('string')).toBe(true)
+    })
+
+    it('Should validate the first name has less or equal than the max allowed chars', () => {
+        userData.first_name = new Array(rules.fnameMaxChars + 2).join('a')
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("First name")).toBe(true)
+        expect(result.error.details[0].message.includes('less than')).toBe(true)
+    })
+
+    it('Should validate the first name has more than the min allowed chars', () => {
+        userData.first_name = new Array(rules.fnameMinChars).join('a')
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("First name")).toBe(true)
+        expect(result.error.details[0].message.includes("at least")).toBe(true)
     })
 })
