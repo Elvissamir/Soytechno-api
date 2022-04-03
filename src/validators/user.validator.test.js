@@ -106,4 +106,44 @@ describe('User Validator', () => {
         expect(result.error.details[0].message.includes("Last name")).toBe(true)
         expect(result.error.details[0].message.includes("at least")).toBe(true)
     })
+
+    it('Should validate the ci is required', () => {
+        delete userData.ci
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("CI")).toBe(true)
+        expect(result.error.details[0].message.includes('required')).toBe(true)
+    })
+
+    it('Should validate the ci is a string', () => {
+        userData.ci = 0
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("CI")).toBe(true)
+        expect(result.error.details[0].message.includes('string')).toBe(true)
+    })
+
+    it('Should validate the ci has less or equal than the max allowed chars', () => {
+        userData.ci = new Array(rules.ciMaxChars + 2).join('2')
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("CI")).toBe(true)
+        expect(result.error.details[0].message.includes('less than')).toBe(true)
+    })
+
+    it('Should validate the ci has more than the min allowed chars', () => {
+        userData.ci = new Array(rules.ciMinChars).join('3')
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("CI")).toBe(true)
+        expect(result.error.details[0].message.includes("at least")).toBe(true)
+    })
 })
