@@ -1,3 +1,4 @@
+const addErrorMessage = require('../utils/addErrorMessage')
 const userValidator = require('../validators/user.validator')
 
 module.exports = (UserDatasource) => async ({ data, options }) => {    
@@ -7,9 +8,8 @@ module.exports = (UserDatasource) => async ({ data, options }) => {
         return dataValidation
 
     const passwordExists = await UserDatasource.findOne({ email: data.email })
-    if (passwordExists) {
-        dataValidation.error = {details: [{ message: 'The provided email already exists' }]}
-    }
+    if (passwordExists)
+        addErrorMessage(dataValidation, 'The email already exists')
 
     return dataValidation
 }

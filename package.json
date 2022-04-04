@@ -4,7 +4,7 @@
   "description": "Soytechno API with Node.js, Express, MongoDB",
   "main": "server.js",
   "scripts": {
-    "test": "jest validateUser.interactor --runInBand --watchAll"
+    "test": "jest --runInBand --watchAll"
   },
   "author": "",
   "license": "ISC",
