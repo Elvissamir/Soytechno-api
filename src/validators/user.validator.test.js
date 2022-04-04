@@ -1,5 +1,4 @@
 const rules = require('../rules/userRules')
-const passwordComplexity = require('joi-password-complexity')
 const validateUser = require('../validators/user.validator')
 
 describe('User Validator', () => {

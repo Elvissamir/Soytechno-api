@@ -66,7 +66,7 @@ describe('Post / - Register User', () => {
         expect(response.header['access-control-expose-headers']).toBe('x-auth-token')
     })
 
-    it('Should return 400 if the data is invalid', async () => {
+    it('Should return 400 and the validation error if the data is invalid', async () => {
         delete userData.first_name
 
         const response = await sendPostRequest(userEndpoint, userData)
