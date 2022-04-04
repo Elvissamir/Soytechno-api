@@ -4,7 +4,7 @@
   "description": "Soytechno API with Node.js, Express, MongoDB",
   "main": "server.js",
   "scripts": {
-    "test": "DEV_STAGE=testing jest --runInBand --watchAll --setupFiles dotenv/config"
+    "test": "DEV_STAGE=testing jest user.controller.login.test.js --runInBand --watchAll --setupFiles dotenv/config"
   },
   "author": "",
   "license": "ISC",
