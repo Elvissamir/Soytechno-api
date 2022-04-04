@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt')
-const config = require('config')
 const jwt = require('jsonwebtoken')
 const UserDataSource = require('../dataSources/User')
 
@@ -22,7 +21,8 @@ describe('User DataSource', () => {
         )
         const authToken = user.generateAuthToken()
 
-        const secretKey = config.get('jwtPrivateKey')
+        const secretKey = process.env.JWT_SECRET_KEY
+        
         const validToken = jwt.sign({
             _id: user._id,
             first_name: user.first_name,

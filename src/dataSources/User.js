@@ -1,7 +1,6 @@
 const userRules = require('../rules/userRules')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const config = require('config')
 const { Schema, model } = require('mongoose')
 
 const userSchema = new Schema({
@@ -53,7 +52,7 @@ userSchema.methods.generateAuthToken = function () {
         email: this.email
     }
 
-    const secret = config.get('jwtPrivateKey')
+    const secret = process.env.JWT_SECRET_KEY
     
     return jwt.sign(data, secret)
 }
