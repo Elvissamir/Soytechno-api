@@ -1,0 +1,34 @@
+version: '3.7'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  api: 
+    container_name: soytechnoapi
+    build: 
+      dockerfile: Dockerfile
+      context: ./
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./:/var/www
+    ports:
+      - 3001:3001
+    networks:
+      - app-network
+
+  mongo: 
+    container_name: soytechnodb
+    image: mongo:5.0.6
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - app-network
+volumes:
+  mongodb:
+  mongodb_config:
