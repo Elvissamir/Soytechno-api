@@ -1,7 +1,12 @@
 const Joi = require("joi")
+const rules = require('../rules/userRules')
 
 const loginSchema = Joi.object({
-    email: Joi.string().email().required().label('email'),
+    email: Joi.string()
+        .max(rules.emailMaxChars)
+        .email()
+        .required()
+        .label('email'),
     password: Joi.any().label('password')
 })
 

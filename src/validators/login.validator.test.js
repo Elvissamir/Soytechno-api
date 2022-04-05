@@ -1,5 +1,6 @@
 const loginValidator = require('./login.validator')
 const validUserData = require('../utils/test-utils/validUserData')
+const rules = require('../rules/userRules')
 
 describe('Login Validator', () => {
     let loginData
@@ -45,5 +46,15 @@ describe('Login Validator', () => {
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes('email')).toBe(true)
         expect(result.error.details[0].message.includes('valid')).toBe(true)
+    })
+
+    it('Should validate the email has less than the max allowed chars', () => {
+        loginData.email = new Array(rules.emailMaxChars + 2).join('2')
+        
+        const result = loginValidator(loginData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('less than')).toBe(true)
     })
 })
