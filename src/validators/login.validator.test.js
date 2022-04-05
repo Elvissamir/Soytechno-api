@@ -12,7 +12,6 @@ describe('Login Validator', () => {
     })
 
     it('Should return the validated data', () => {
-
         const result = loginValidator(loginData)
 
         expect(result).not.toHaveProperty('error')
@@ -30,4 +29,12 @@ describe('Login Validator', () => {
         expect(result.error.details[0].message.includes('required')).toBe(true)
     })
 
+    it('Should validate the email is a string', () => {
+        loginData.email = 0
+        const result = loginValidator(loginData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('string')).toBe(true)
+    })
 })
