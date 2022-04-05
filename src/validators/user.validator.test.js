@@ -217,6 +217,26 @@ describe('User Validator', () => {
         expect(result.error.details[0].message.includes('upper-cased')).toBe(true)
     })
 
+    it('Should validate the password has equal or more chars than the min required', () => {
+        userData.password = 'password'
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Password")).toBe(true)
+        expect(result.error.details[0].message.includes('at least')).toBe(true)
+    })
+
+    it('Should validate the password has less than or equal chars than the max required', () => {
+        userData.password = 'password'
+
+        const result = validateUser(userData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes("Password")).toBe(true)
+        expect(result.error.details[0].message.includes('at least')).toBe(true)
+    })
+
     it('Should validate the password has at least 1 number character', () => {
         userData.password = 'Password'
 

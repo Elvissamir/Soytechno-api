@@ -13,5 +13,15 @@ const loginSchema = Joi.object({
 })
 
 module.exports = function (login) {
-    return loginSchema.validate(login)
+    const validation = loginSchema.validate(login)
+
+    if (validation.error)
+        return validation
+    
+    return validation
+
+    // const validPasswordComplexity = validatePasswordComplexity(userData.password)
+    
+    // if (validPasswordComplexity.error)
+    //  validation.error = validPasswordComplexity.error
 }

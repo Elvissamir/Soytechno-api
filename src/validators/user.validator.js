@@ -42,7 +42,7 @@ module.exports = function (userData) {
     const validPasswordComplexity = validatePasswordComplexity(userData.password)
     
     if (validPasswordComplexity.error)
-        addErrorMessage(validation, validPasswordComplexity.error.details[0].message)
+        validation.error = validPasswordComplexity.error
 
     return validation
 }
