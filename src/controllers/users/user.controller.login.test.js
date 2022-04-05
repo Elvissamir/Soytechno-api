@@ -1,5 +1,5 @@
 const dbTestHandler = require('../../utils/test-utils/dbTestHandler')
-const { userEndpoint } = require('../../endpoints')
+const { loginEndpoint } = require('../../endpoints')
 const request = require('supertest')
 const app = require('../../app')
 const User = require('../../dataSources/User')
@@ -18,7 +18,7 @@ describe('POST /login - Login User', () => {
     let user
 
     const sendPostRequest = (endpoint, data) => {
-        return request(app).post(`${endpoint}/login`).send(data)
+        return request(app).post(`${endpoint}`).send(data)
     }
 
     beforeEach(async () => {
@@ -43,7 +43,7 @@ describe('POST /login - Login User', () => {
     })
 
     it('Should send the auth token', async () => {
-        const response = await sendPostRequest(userEndpoint, data)
+        const response = await sendPostRequest(loginEndpoint, data)
 
         expect(response.status).toBe(200)
         expect(response.body).toBe(token)
