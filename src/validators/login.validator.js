@@ -1,7 +1,7 @@
 const Joi = require("joi")
 
 const loginSchema = Joi.object({
-    email: Joi.any().label('email'),
+    email: Joi.required().label('email'),
     password: Joi.any().label('password')
 })
 

@@ -21,4 +21,13 @@ describe('Login Validator', () => {
         expect(result.value).toHaveProperty('password')
     })
 
+    it('Should validate the email is required', () => {
+        delete loginData.email
+        const result = loginValidator(loginData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('required')).toBe(true)
+    })
+
 })
