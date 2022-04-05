@@ -20,13 +20,19 @@ describe('Validate Login Interactor', () => {
         const validToken = user.generateAuthToken()
         const result = await validateLogin(loginData)
 
-        // expect not to have an error property
         expect(result).not.toHaveProperty('error')
-
-        // expect an object with a token property
         expect(result).toHaveProperty('token')
-
-        // expect the token to be valid
         expect(result.token).toBe(validToken)
+    })
+
+    it('Should return the error if the email is invalid', async () => {
+        jest.spyOn(UserDataSource, 'findOne').mockReturnValue(Promise.resolve(null))
+
+        delete loginData.email
+        const result = await validateLogin(loginData)
+
+        expect(result).toHaveProperty('error')
+        expect(result).not.toHaveProperty('token')
+        expect(result.error.details[0].message.includes('email')).toBe(true)
     })
 })
