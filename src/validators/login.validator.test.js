@@ -37,4 +37,13 @@ describe('Login Validator', () => {
         expect(result.error.details[0].message.includes('email')).toBe(true)
         expect(result.error.details[0].message.includes('string')).toBe(true)
     })
+
+    it('Should validate the email has a valid format', () => {
+        loginData.email = 'notAnEmail'
+        const result = loginValidator(loginData)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('valid')).toBe(true)
+    })
 })
