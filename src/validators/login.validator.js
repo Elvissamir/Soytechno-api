@@ -7,7 +7,7 @@ const loginSchema = Joi.object({
         .email()
         .required()
         .label('email'),
-    password: Joi.any().label('password')
+    password: Joi.required().label('password')
 })
 
 module.exports = function (login) {
