@@ -1,16 +1,24 @@
 const UserDataSource = require('../dataSources/User')
 const { validateLogin } = require('./index')
+const validUserData = require('../utils/test-utils/validUserData')
 
 describe('Validate Login Interactor', () => {
+    let loginData
 
-    const userData = 
+    beforeEach(() => {
+        loginData = {
+            email: validUserData.email,
+            password: validUserData.password
+        }
+    })
 
     it('Should return the result of the data validation', async () => {
-        const user = new UserDataSource()
+        const user = new UserDataSource(validUserData)
 
-        const validToken = UserDataSource
+        jest.spyOn(UserDataSource, 'findOne').mockReturnValue(Promise.resolve(user))
 
-        const result = await validateLogin()
+        const validToken = user.generateAuthToken()
+        const result = await validateLogin(loginData)
 
         // expect not to have an error property
         expect(result).not.toHaveProperty('error')
