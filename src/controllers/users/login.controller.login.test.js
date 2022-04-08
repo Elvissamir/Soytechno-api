@@ -46,6 +46,6 @@ describe('POST /login - Login User', () => {
         const response = await sendPostRequest(loginEndpoint, data)
 
         expect(response.status).toBe(200)
-        expect(response.body).toBe(token)
+        expect(response.text).toBe(token)
     })
 })
