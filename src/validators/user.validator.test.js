@@ -186,7 +186,7 @@ describe('User Validator', () => {
         expect(result.error.details[0].message.includes("Email")).toBe(true)
         expect(result.error.details[0].message.includes('valid')).toBe(true)
     })
-
+    
     it('Should validate the password is required', () => {
         delete userData.password
 

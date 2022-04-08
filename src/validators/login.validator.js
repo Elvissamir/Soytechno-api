@@ -7,10 +7,10 @@ const loginSchema = Joi.object({
         .max(rules.emailMaxChars)
         .email()
         .required()
-        .label('email'),
+        .label('Email'),
     password: Joi.string()
         .required()
-        .label('password')
+        .label('Password')
 })
 
 module.exports = function (login) {

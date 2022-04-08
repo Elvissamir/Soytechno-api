@@ -26,7 +26,7 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('Email')).toBe(true)
         expect(result.error.details[0].message.includes('required')).toBe(true)
     })
 
@@ -35,7 +35,7 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('Email')).toBe(true)
         expect(result.error.details[0].message.includes('string')).toBe(true)
     })
 
@@ -44,7 +44,7 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('Email')).toBe(true)
         expect(result.error.details[0].message.includes('valid')).toBe(true)
     })
 
@@ -54,7 +54,7 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('Email')).toBe(true)
         expect(result.error.details[0].message.includes('less than')).toBe(true)
     })
 
@@ -64,7 +64,7 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes('password')).toBe(true)
+        expect(result.error.details[0].message.includes('Password')).toBe(true)
         expect(result.error.details[0].message.includes('required')).toBe(true)
     })
 
@@ -74,7 +74,7 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes('password')).toBe(true)
+        expect(result.error.details[0].message.includes('Password')).toBe(true)
         expect(result.error.details[0].message.includes('string')).toBe(true)
     })
 
@@ -85,7 +85,7 @@ describe('Login Validator', () => {
 
         expect(result).toHaveProperty('error')
 
-        expect(result.error.details[0].message.includes('password')).toBe(true)
+        expect(result.error.details[0].message.includes('Password')).toBe(true)
         expect(result.error.details[0].message.includes('at least')).toBe(true)
     })
 
@@ -95,7 +95,7 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes('password')).toBe(true)
+        expect(result.error.details[0].message.includes('Password')).toBe(true)
         expect(result.error.details[0].message.includes('longer than')).toBe(true)
     })
 })

@@ -33,7 +33,7 @@ describe('Validate Login Interactor', () => {
 
         expect(result).toHaveProperty('error')
         expect(result).not.toHaveProperty('token')
-        expect(result.error.details[0].message.includes('email')).toBe(true)
+        expect(result.error.details[0].message.includes('Email')).toBe(true)
     })
 
     it('Should return the error if the password is invalid', async () => {
@@ -44,6 +44,6 @@ describe('Validate Login Interactor', () => {
 
         expect(result).toHaveProperty('error')
         expect(result).not.toHaveProperty('token')
-        expect(result.error.details[0].message.includes('password')).toBe(true)
+        expect(result.error.details[0].message.includes('Password')).toBe(true)
     })
 })

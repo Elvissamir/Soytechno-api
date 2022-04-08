@@ -44,7 +44,7 @@ describe('Validate User Interactor', () => {
         const result = await validateUser({ data: userData, options: { checkEmail: true } })
     
         expect(result).toHaveProperty('error')
-        expect(result.error.details[0].message.includes("email")).toBe(true)
+        expect(result.error.details[0].message.includes("Email")).toBe(true)
         expect(result.error.details[0].message.includes('already exists')).toBe(true)
     })
 })
