@@ -84,17 +84,18 @@ describe('Login Validator', () => {
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
+
         expect(result.error.details[0].message.includes('password')).toBe(true)
         expect(result.error.details[0].message.includes('at least')).toBe(true)
     })
 
     it('Should validate the password has less or equal chars than the max required', () => {
-        loginData.password = 'a'
+        loginData.password = 'abcdefghijklmnopqrsvtwz'
         
         const result = loginValidator(loginData)
 
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes('password')).toBe(true)
-        expect(result.error.details[0].message.includes('at least')).toBe(true)
+        expect(result.error.details[0].message.includes('longer than')).toBe(true)
     })
 })

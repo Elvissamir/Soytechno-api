@@ -12,5 +12,5 @@ const passwordOptions = {
 }
  
 module.exports = function (password) {
-    return passwordComplexity(passwordOptions, 'Password').validate(password)
+    return passwordComplexity(passwordOptions, 'password').validate(password)
 }

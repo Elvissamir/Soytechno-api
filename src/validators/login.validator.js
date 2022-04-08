@@ -1,5 +1,6 @@
 const Joi = require("joi")
 const rules = require('../rules/userRules')
+const validatePasswordComplexity = require('./passwordComplexity.validator')
 
 const loginSchema = Joi.object({
     email: Joi.string()
@@ -18,10 +19,9 @@ module.exports = function (login) {
     if (validation.error)
         return validation
     
+    const validPasswordComplexity = validatePasswordComplexity(login.password)
+        
+    if (validPasswordComplexity.error)
+        validation.error = validPasswordComplexity.error
     return validation
-
-    // const validPasswordComplexity = validatePasswordComplexity(userData.password)
-    
-    // if (validPasswordComplexity.error)
-    //  validation.error = validPasswordComplexity.error
 }

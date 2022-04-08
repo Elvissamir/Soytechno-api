@@ -7,30 +7,30 @@ const schema = Joi.object({
         .min(rules.fnameMinChars)
         .max(rules.fnameMaxChars)
         .required()
-        .label('First name'),
+        .label('first name'),
 
     last_name: Joi.string()
         .min(rules.lnameMinChars)
         .max(rules.lnameMaxChars)
         .required()
-        .label('Last name'),
+        .label('last name'),
     
     ci: Joi.string()
         .min(rules.ciMinChars)
         .max(rules.ciMaxChars)
         .required()
-        .label('CI'),
+        .label('ci'),
 
     email: Joi.string()
         .max(rules.emailMaxChars)
         .email()
         .required()
-        .label('Email'),
+        .label('email'),
     
     password: Joi
         .string()
         .required()
-        .label('Password')
+        .label('password')
 })
 
 module.exports = function (userData) {
