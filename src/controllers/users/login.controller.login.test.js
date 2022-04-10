@@ -48,4 +48,13 @@ describe('POST /login - Login User', () => {
         expect(response.status).toBe(200)
         expect(response.text).toBe(token)
     })
+
+    it('Should return the invalid email or password error if invalid login', async () => {
+        data.email = 'invalidEmail'
+
+        const response = await sendPostRequest(loginEndpoint, data)
+
+        expect(response.status).toBe(400)
+        expect(response.body.error.details[0].message).toBe('Invalid email or password')
+    })
 })
