@@ -55,6 +55,6 @@ describe('POST /login - Login User', () => {
         const response = await sendPostRequest(loginEndpoint, data)
 
         expect(response.status).toBe(400)
-        expect(response.body.error.details[0].message).toBe('Invalid email or password')
+        expect(response.text).toBe('Invalid email or password')
     })
 })
