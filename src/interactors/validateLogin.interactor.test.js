@@ -56,9 +56,11 @@ describe('Validate Login Interactor', () => {
 
         jest.spyOn(UserDataSource, 'findOne').mockReturnValue(Promise.resolve(user))
 
+        loginData.password = 'NotTheUserPassword1_'
         const result = await validateLogin(loginData)
 
         expect(result).toHaveProperty('error')
         expect(result).not.toHaveProperty('token')
+        expect(result).toBe('Invalid password or email')
     })
 })
