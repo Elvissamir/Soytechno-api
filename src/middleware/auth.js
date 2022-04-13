@@ -1,4 +1,4 @@
-
+const { validateToken } = require('../interactors/index')
 
 module.exports = function (req, res, next) {
     // if no headers return error

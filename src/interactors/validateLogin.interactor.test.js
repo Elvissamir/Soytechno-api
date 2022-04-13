@@ -1,6 +1,7 @@
 const UserDataSource = require('../dataSources/User')
 const { validateLogin } = require('./index')
 const validUserData = require('../utils/test-utils/validUserData')
+const User = require('../dataSources/User')
 
 describe('Validate Login Interactor', () => {
     let loginData
@@ -45,5 +46,19 @@ describe('Validate Login Interactor', () => {
         expect(result).toHaveProperty('error')
         expect(result).not.toHaveProperty('token')
         expect(result.error.details[0].message.includes('Password')).toBe(true)
+    })
+
+    it('Should return an error if the password is incorrect', async () => {
+        const userData = validUserData
+        userData['password'] = await User.hashPassword(validUserData.password)
+
+        const user = new User(userData)
+
+        jest.spyOn(UserDataSource, 'findOne').mockReturnValue(Promise.resolve(user))
+
+        const result = await validateLogin(loginData)
+
+        expect(result).toHaveProperty('error')
+        expect(result).not.toHaveProperty('token')
     })
 })
