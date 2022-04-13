@@ -1,6 +1,6 @@
 const validUser = require('../utils/test-utils/validUserData')
 const User = require('../dataSources/User')
-const userData = require('../utils/test-utils/validUserData')
+const authMiddleware = require('./auth')
 
 describe('Auth Middleware', () => {
     let user
@@ -10,11 +10,10 @@ describe('Auth Middleware', () => {
     let next = jest.fn()
 
     beforeEach(() => {
-        userData = validUser
+        const userData = validUser
         userData['password'] = User.hashPassword(validUser.password)
 
         user = new User(userData)
-
         token = user.generateAuthToken()
 
         req = {
@@ -44,7 +43,7 @@ describe('Auth Middleware', () => {
     })
 
     it('Should allow the request if the token is valid', async () => {
-        
+
         authMiddleware(req, res, next)
 
         expect(next).toBeCalledTimes(1)
