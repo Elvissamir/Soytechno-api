@@ -9,6 +9,7 @@ module.exports = function (req, res, next) {
     const validToken = validateToken(req.headers['x-auth-token'])
 
     // if valid call next
+    console.log(validToken)
     if (validToken)
         next()
 }

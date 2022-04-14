@@ -9,9 +9,9 @@ describe('Auth Middleware', () => {
     let res
     let next = jest.fn()
 
-    beforeEach(() => {
+    beforeEach(async () => {
         const userData = validUser
-        userData['password'] = User.hashPassword(validUser.password)
+        userData['password'] = await User.hashPassword(validUser.password)
 
         user = new User(userData)
         token = user.generateAuthToken()
@@ -42,10 +42,13 @@ describe('Auth Middleware', () => {
         next.mockClear()
     })
 
-    it('Should allow the request if the token is valid', async () => {
-
+    it('Should allow the request if the token is valid', () => {
         authMiddleware(req, res, next)
 
         expect(next).toBeCalledTimes(1)
+    })
+
+    it('Should return 400 if the request has no headers', () => {
+
     })
 })
