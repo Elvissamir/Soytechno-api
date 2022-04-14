@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { validateToken } = require('./index')
+const validateToken = require('./authToken.validator')
 
 describe('Validate Token Interactor', () => {
     let token
@@ -17,6 +17,7 @@ describe('Validate Token Interactor', () => {
     })
 
     it('Should return false if token is invalid', () => {
+        token = jwt.sign(payload, 'notTheSecretKey')
         const result = validateToken(token)
 
         expect(result).toBe(false)
