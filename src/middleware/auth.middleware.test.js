@@ -19,33 +19,18 @@ describe('Auth Middleware', () => {
         token = user.generateAuthToken()
 
         req = {
-            params: {}, 
-            body: {},
             headers: {
                 'x-auth-token': token,
                 'accsess-control-expose-headers': 'x-auth-token'
             }
         }
 
-        res = {
-            data: null, 
-            code: null, 
-        }
+        res = {}
 
-        const statusImplementation = function (status) {
-            this.code = status
-            return this
-        }
-
-        const sendImplementation = function (payload) {
-            this.data = payload
-            return this
-        }
-
-        mockSendfn = jest.fn(sendImplementation)
+        mockSendfn = jest.fn()
         res['send'] = mockSendfn
 
-        mockStatusfn = jest.fn(statusImplementation)
+        mockStatusfn = jest.fn()
         res['status'] = mockStatusfn
 
         next.mockClear()
