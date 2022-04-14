@@ -8,8 +8,8 @@ describe('Auth Middleware', () => {
     let req
     let res
     let next = jest.fn()
-    let mockSendfn
-    let mockStatusfn
+    let mockSendfn = jest.fn()
+    let mockStatusfn = jest.fn()
 
     beforeEach(async () => {
         const userData = validUser
@@ -26,11 +26,7 @@ describe('Auth Middleware', () => {
         }
 
         res = {}
-
-        mockSendfn = jest.fn()
         res['send'] = mockSendfn
-
-        mockStatusfn = jest.fn()
         res['status'] = mockStatusfn
 
         next.mockClear()
@@ -48,8 +44,6 @@ describe('Auth Middleware', () => {
         // delete req.headers
         const response = authMiddleware(req, res, next)
 
-        expect(response.code).toBe(400)
-        expect(response.data).toBe('Access denied. No token provided')
         expect(mockSendfn).toBeCalledTimes(1)
         expect(mockStatusfn).toBeCalledTimes(1)
     })
