@@ -8,8 +8,8 @@ describe('Auth Middleware', () => {
     let req
     let res
     let next = jest.fn()
-    let mockSendfn = jest.fn()
-    let mockStatusfn = jest.fn()
+    let mockSendfn = jest.fn(function () {return this})
+    let mockStatusfn = jest.fn(function () {return this})
 
     beforeEach(async () => {
         const userData = validUser
@@ -41,10 +41,12 @@ describe('Auth Middleware', () => {
     })
 
     it('Should return 400 if the request has no headers', () => {
-        // delete req.headers
-        const response = authMiddleware(req, res, next)
+        delete req.headers
+        authMiddleware(req, res, next)
 
         expect(mockSendfn).toBeCalledTimes(1)
+        expect(mockSendfn).toBeCalledWith('Access denied. No token provided')
         expect(mockStatusfn).toBeCalledTimes(1)
+        expect(mockStatusfn).toBeCalledWith(401)
     })
 })
