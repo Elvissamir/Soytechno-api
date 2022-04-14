@@ -5,17 +5,21 @@ const User = require('../dataSources/User')
 
 describe('Validate Login Interactor', () => {
     let loginData
+    let user
 
-    beforeEach(() => {
+    beforeEach(async () => {
         loginData = {
             email: validUserData.email,
             password: validUserData.password
         }
+
+        const userData = validUserData
+        userData['password'] = await User.hashPassword(validUserData.password)
+
+        user = new User(userData)
     })
 
     it('Should return the result of the data validation', async () => {
-        const user = new UserDataSource(validUserData)
-
         jest.spyOn(UserDataSource, 'findOne').mockReturnValue(Promise.resolve(user))
 
         const validToken = user.generateAuthToken()
@@ -49,11 +53,6 @@ describe('Validate Login Interactor', () => {
     })
 
     it('Should return an error if the password is incorrect', async () => {
-        const userData = validUserData
-        userData['password'] = await User.hashPassword(validUserData.password)
-
-        const user = new User(userData)
-
         jest.spyOn(UserDataSource, 'findOne').mockReturnValue(Promise.resolve(user))
 
         loginData.password = 'NotTheUserPassword1_'
@@ -61,6 +60,6 @@ describe('Validate Login Interactor', () => {
 
         expect(result).toHaveProperty('error')
         expect(result).not.toHaveProperty('token')
-        expect(result).toBe('Invalid password or email')
+        expect(result.error.details[0].message.includes('Invalid email or password')).toBe(true)
     })
 })
