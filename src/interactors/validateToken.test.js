@@ -15,4 +15,10 @@ describe('Validate Token Interactor', () => {
 
         expect(result).toBe(true)
     })
+
+    it('Should return false if token is invalid', () => {
+        const result = validateToken(token)
+
+        expect(result).toBe(false)
+    })
 })
