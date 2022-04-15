@@ -10,7 +10,7 @@ describe('Validate Token Interactor', () => {
         token = jwt.sign(payload, process.env.JWT_SECRET_KEY)
     })
 
-    it('Should return true if token is valid', () => {
+    it('Should return the decoded data if token is valid', () => {
         const result = validateToken(token)
 
         expect(result).toBe(payload)
