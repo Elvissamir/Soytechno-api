@@ -1,10 +1,10 @@
 const validUser = require('../utils/test-utils/validUserData')
 const User = require('../dataSources/User')
 const authMiddleware = require('./auth')
-const validateToken = require('../validators/authToken.validator')
 
 describe('Auth Middleware', () => {
     let user
+    let userData
     let token
     let req
     let res
@@ -13,7 +13,7 @@ describe('Auth Middleware', () => {
     let mockStatusfn = jest.fn(function () {return this})
 
     beforeEach(async () => {
-        const userData = validUser
+        userData = validUser
         userData['password'] = await User.hashPassword(validUser.password)
 
         user = new User(userData)
@@ -43,6 +43,13 @@ describe('Auth Middleware', () => {
         authMiddleware(req, res, next)
 
         expect(next).toBeCalledTimes(1)
+    })
+
+    it('Should add the decoded jwt token data to the user prop of the request', () => {
+        authMiddleware(req, res, next)
+
+        expect(req).toHaveProperty('user')
+        expect(req.user).toBe(userData)
     })
 
     it('Should return 401 if the jwt token is not present in headers', () => {
