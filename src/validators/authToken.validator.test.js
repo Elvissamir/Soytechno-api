@@ -13,7 +13,7 @@ describe('Validate Token Interactor', () => {
     it('Should return true if token is valid', () => {
         const result = validateToken(token)
 
-        expect(result).toBe(true)
+        expect(result).toBe(payload)
     })
 
     it('Should return false if token is invalid', () => {

@@ -9,5 +9,6 @@ module.exports = function (req, res, next) {
     if (!validToken)
         return res.status(400).send('Invalid token')
 
+    req.user = validToken
     next()
 }

@@ -49,7 +49,10 @@ describe('Auth Middleware', () => {
         authMiddleware(req, res, next)
 
         expect(req).toHaveProperty('user')
-        expect(req.user).toBe(userData)
+        expect(req.user).toHaveProperty('_id')
+        expect(req.user).toHaveProperty('first_name')
+        expect(req.user).toHaveProperty('last_name')
+        expect(req.user).toHaveProperty('email')
     })
 
     it('Should return 401 if the jwt token is not present in headers', () => {
