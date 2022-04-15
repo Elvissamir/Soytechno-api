@@ -42,6 +42,18 @@ describe('Auth Middleware', () => {
 
     it('Should return 400 if the request has no headers', () => {
         delete req.headers
+        
+        authMiddleware(req, res, next)
+
+        expect(mockSendfn).toBeCalledTimes(1)
+        expect(mockSendfn).toBeCalledWith('Access denied. No token provided')
+        expect(mockStatusfn).toBeCalledTimes(1)
+        expect(mockStatusfn).toBeCalledWith(401)
+    })
+
+    it('Should return 400 if the x-auth-token is not present in headers', () => {
+        delete req.headers['x-auth-token']
+        
         authMiddleware(req, res, next)
 
         expect(mockSendfn).toBeCalledTimes(1)
