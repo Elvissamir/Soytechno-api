@@ -1,12 +1,15 @@
 const validateToken = require('../validators/authToken.validator')
 
 module.exports = function (req, res, next) {
-    if (!req.headers['x-auth-token'])
+    const token = req.header('x-auth-token')
+
+    if (!token)
         return res.status(401).send('Access denied. No token provided')
 
-    const validToken = validateToken(req.headers['x-auth-token'])
-
-    // if invalid token return 400 invalid token
+    const validToken = validateToken(token)
+    
+    if (!validToken)
+        return res.status(400).send('Invalid token')
 
     next()
 }

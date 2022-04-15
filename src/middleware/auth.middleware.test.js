@@ -1,6 +1,7 @@
 const validUser = require('../utils/test-utils/validUserData')
 const User = require('../dataSources/User')
 const authMiddleware = require('./auth')
+const validateToken = require('../validators/authToken.validator')
 
 describe('Auth Middleware', () => {
     let user
@@ -22,6 +23,10 @@ describe('Auth Middleware', () => {
             headers: {
                 'x-auth-token': token,
                 'accsess-control-expose-headers': 'x-auth-token'
+            },
+
+            header(name) {
+                return this.headers[name]
             }
         }
 
@@ -34,7 +39,7 @@ describe('Auth Middleware', () => {
         mockStatusfn.mockClear()
     })
 
-    it('Should allow the request if the token is valid', () => {
+    it('Should allow the request if the jwt token is valid', () => {
         authMiddleware(req, res, next)
 
         expect(next).toBeCalledTimes(1)
@@ -49,5 +54,16 @@ describe('Auth Middleware', () => {
         expect(mockSendfn).toBeCalledWith('Access denied. No token provided')
         expect(mockStatusfn).toBeCalledTimes(1)
         expect(mockStatusfn).toBeCalledWith(401)
+    })
+
+    it('Should return 400 if the jwt token is invalid', () => {
+        req.headers['x-auth-token'] = 'nonValidToken'
+
+        authMiddleware(req, res, next)
+
+        expect(mockSendfn).toBeCalledTimes(1)
+        expect(mockSendfn).toBeCalledWith('Invalid token')
+        expect(mockStatusfn).toBeCalledTimes(1)
+        expect(mockStatusfn).toBeCalledWith(400)
     })
 })
