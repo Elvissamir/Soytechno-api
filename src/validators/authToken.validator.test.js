@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const validateToken = require('./authToken.validator')
+const { validateToken } = require('./authToken.validator')
 
-describe('Validate Token Interactor', () => {
+describe('Auth Token Validator', () => {
     let token
     let payload
 

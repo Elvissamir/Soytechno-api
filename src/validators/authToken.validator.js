@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = function (token) {
+const validateToken = (token) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
         return decoded
@@ -8,4 +8,8 @@ module.exports = function (token) {
     catch(ex) {
         return false
     }
+}
+
+module.exports = {
+    validateToken
 }

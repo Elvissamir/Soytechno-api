@@ -1,4 +1,4 @@
-const validateToken = require('../validators/authToken.validator')
+const { validateToken } = require('../validators/authToken.validator')
 
 module.exports = function (req, res, next) {
     const token = req.header('x-auth-token')
