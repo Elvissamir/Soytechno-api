@@ -5,7 +5,7 @@ const dbTestHandler = require('../../utils/test-utils/dbTestHandler')
 const { userEndpoint } = require('../../endpoints')
 const User = require('../../dataSources/User')
 
-describe('Post / - Register User', () => {
+describe('Users Controller / POST ', () => {
     let userData
 
     const sendPostRequest = (endpoint, data) => {

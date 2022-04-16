@@ -13,12 +13,12 @@ describe('User DataSource', () => {
     })
 
     it('Should generate a valid jwt token with generateAuthToken method', async () => {
-        const user = new UserDataSource( { 
+        const user = new UserDataSource({ 
             first_name: 'fname',
             last_name: 'lname',
             email: 'user@mail.com',
-        }
-        )
+        })
+        
         const authToken = user.generateAuthToken()
 
         const secretKey = process.env.JWT_SECRET_KEY
