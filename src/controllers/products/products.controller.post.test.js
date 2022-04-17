@@ -1,6 +1,7 @@
 const app = require('../../app')
 const request = require('supertest')
 const { productEndpoint } = require('../../endpoints/index')
+const Product = require('../../dataSources/Product')
 const dbTestHandler = require('../../utils/test-utils/dbTestHandler')
 
 describe('Products Controller / POST', () => {
@@ -18,22 +19,16 @@ describe('Products Controller / POST', () => {
     })
 
     it('Should create a new post with given data', async () => {
-        // expect the database has 0 products
         const productsCountBefore = Product.count()
         expect(productsCountBefore).toBe(0)
 
-        // send post request with data
         const productData = {}
         const response = await sendPostRequest(productData)
 
-        // expect the database has 1 product
         const productsCountAfter = Product.count()
         expect(productsCountAfter).toBe(1)
 
-        // expect response to be 200
         expect(response.status).toBe(200)
-
-        // expect response to have the created product
         expect(response.body).toHaveProperty('_id')
         expect(response.body).toHaveProperty('title')
         expect(response.body).toHaveProperty('price')
