@@ -1,4 +1,12 @@
+const app = require('../../app')
+const request = require('supertest')
+const dbTestHandler = require('../../utils/test-utils/dbTestHandler')
+
 describe('Products Controller / POST', () => {
+
+    const sendPostRequest = () => {
+        return request(app).post()
+    }
 
     it('Should create a new post with given data', async () => {
         // expect the database has 0 products
