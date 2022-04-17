@@ -9,6 +9,14 @@ describe('Products Controller / POST', () => {
         return request(app).post(productEndpoint).send(data)
     }
 
+    beforeEach(async () => {
+        await dbTestHandler.startAndConnect()
+    })
+
+    afterEach(async () => {
+        await dbTestHandler.disconnectAndStop()
+    })
+
     it('Should create a new post with given data', async () => {
         // expect the database has 0 products
         const productsCountBefore = Product.count()
