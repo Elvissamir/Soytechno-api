@@ -1,5 +1,5 @@
 const rules = require('../rules/productRules')
-const { Schema, Model } = require('mongoose')
+const { Schema, model } = require('mongoose')
 
 const productSchema = new Schema({
     title: {
@@ -39,5 +39,7 @@ const productSchema = new Schema({
         default: null
     }
 })
+
+const Product = model('Product', productSchema)
 
 module.exports = Product
