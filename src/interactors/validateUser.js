@@ -1,14 +1,14 @@
 const userValidator = require('../validators/user.validator')
 
 module.exports = (UserDatasource) => async ({ data, options }) => {    
-    const dataValidation = userValidator(data)
+    const validation = userValidator(data)
 
-    if (dataValidation.error)
-        return dataValidation
+    if (validation.error)
+        return validation
 
     const passwordExists = await UserDatasource.findOne({ email: data.email })
     if (passwordExists) 
-        dataValidation.error = {details: [{message: 'Email already exists'}]}
+        validation.error = {details: [{message: 'Email already exists'}]}
 
-    return dataValidation
+    return validation
 }
