@@ -5,7 +5,6 @@ const Product = require('../../dataSources/Product')
 const dbTestHandler = require('../../utils/test-utils/dbTestHandler')
 
 describe('Products Controller / POST', () => {
-
     const sendPostRequest = (data) => {
         return request(app).post(productEndpoint).send(data)
     }
