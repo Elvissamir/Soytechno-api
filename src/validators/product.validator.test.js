@@ -9,8 +9,8 @@ describe('Product Validator', () => {
             title: 'The product tile',
             price: 1,
             inStock: 100,
-            description: 'A description',
-            discount: 0.8,
+            description: 'The description of the product',
+            discount: 10,
             rating: 5
         }
     })
@@ -86,4 +86,15 @@ describe('Product Validator', () => {
         expect(result.error.details[0].message.includes('Description')).toBe(true)
         expect(result.error.details[0].message.includes('at least')).toBe(true) 
     }) 
+
+    it('Should validate the discount is a number', () => {
+        data.discount = 'string'
+        const result = productValidator(data)
+
+        console.log(result)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Discount')).toBe(true)
+        expect(result.error.details[0].message.includes('number'))
+    })
 })
