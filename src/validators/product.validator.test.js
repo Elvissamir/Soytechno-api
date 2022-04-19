@@ -113,4 +113,13 @@ describe('Product Validator', () => {
         expect(result.error.details[0].message.includes('Discount')).toBe(true)
         expect(result.error.details[0].message.includes('greater than'))
     })
+
+    it('Should validate the price is required', () => {
+        delete data.price
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Price')).toBe(true)
+        expect(result.error.details[0].message.includes('required'))
+    })
 })
