@@ -18,4 +18,13 @@ describe('Product Validator', () => {
         expect(result.error.details[0].message.includes('Title')).toBe(true)
         expect(result.error.details[0].message.includes('required')).toBe(true) 
     })
+
+    it ('Should validate the title is a string', () => {
+        data['title'] = 100
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Title')).toBe(true)
+        expect(result.error.details[0].message.includes('string')).toBe(true) 
+    })
 })
