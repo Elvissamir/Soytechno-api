@@ -1,14 +1,8 @@
 const { createProduct } = require('./index')
+const validProductData = require('../utils/test-utils/validMockData/validProductData')
 
 describe('Create Product Interactor', () => {
-    let productData = {
-        title: 'title',
-        price: 1,
-        inStock: 100,
-        description: 'A description',
-        discount: 0.8,
-        rating: 5
-    }
+    let productData = validProductData
 
     it('Creates a new product and returns it if the given data is valid', async () => {
         const result = await createProduct(productData)

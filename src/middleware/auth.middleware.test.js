@@ -1,4 +1,4 @@
-const validUser = require('../utils/test-utils/validUserData')
+const validUser = require('../utils/test-utils/validMockData/validUserData')
 const User = require('../dataSources/User')
 const authMiddleware = require('./auth')
 
