@@ -91,10 +91,17 @@ describe('Product Validator', () => {
         data.discount = 'string'
         const result = productValidator(data)
 
-        console.log(result)
-
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes('Discount')).toBe(true)
         expect(result.error.details[0].message.includes('number'))
+    })
+
+    it('Should validate the discount value is more than or equal to the min', () => {
+        data.discount = -1
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Discount')).toBe(true)
+        expect(result.error.details[0].message.includes('greater than'))
     })
 })
