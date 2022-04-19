@@ -2,7 +2,7 @@ const rules = require('../rules/productRules')
 const Joi = require('joi')
 
 const schema = Joi.object({
-    title: Joi.string().required().label('Title'),
+    title: Joi.string().max(rules.titleMaxChars).required().label('Title'),
     price: Joi.any(),
     inStock: Joi.any(),
     description: Joi.any(),
