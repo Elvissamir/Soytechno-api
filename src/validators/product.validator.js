@@ -14,7 +14,10 @@ const schema = Joi.object({
         .max(rules.descriptionMaxChars)
         .required()
         .label('Description'),
-    discount: Joi.number().min(rules.discountMin).label('Discount'),
+    discount: Joi.number()
+        .min(rules.discountMin)
+        .max(rules.discountMax)
+        .label('Discount'),
     rating: Joi.any()
 })
 

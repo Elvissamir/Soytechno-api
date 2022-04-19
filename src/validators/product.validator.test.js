@@ -104,4 +104,13 @@ describe('Product Validator', () => {
         expect(result.error.details[0].message.includes('Discount')).toBe(true)
         expect(result.error.details[0].message.includes('greater than'))
     })
+
+    it('Should validate the discount value is less than or equal to the max', () => {
+        data.discount = 1000
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Discount')).toBe(true)
+        expect(result.error.details[0].message.includes('greater than'))
+    })
 })
