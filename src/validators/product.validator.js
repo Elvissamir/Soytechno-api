@@ -7,7 +7,9 @@ const schema = Joi.object({
         .max(rules.titleMaxChars)
         .required()
         .label('Title'),
-    price: Joi.required().label('Price'),
+    price: Joi.number()
+        .required()
+        .label('Price'),
     inStock: Joi.any(),
     description: Joi.string()
         .min(rules.descriptionMinChars)
