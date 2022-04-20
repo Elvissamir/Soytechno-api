@@ -11,6 +11,7 @@ const schema = Joi.object({
         .required()
         .label('Price'),
     inStock: Joi.number()
+        .max(rules.inStockMax)
         .required()
         .label('Stock'),
     description: Joi.string()

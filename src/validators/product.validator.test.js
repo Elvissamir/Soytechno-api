@@ -151,11 +151,20 @@ describe('Product Validator', () => {
     })
 
     it('Should validate the stock is less than or equal to the max allowed', () => {
-        data.inStock = 10000000
+        data.inStock = rules.inStockMax + 1
         const result = productValidator(data)
 
         expect(result).toHaveProperty('error')
         expect(result.error.details[0].message.includes('Stock')).toBe(true)
         expect(result.error.details[0].message.includes('less than'))
+    })
+
+    it('Should validate the stock is more than or equal to the min allowed', () => {
+        data.inStock = rules.inStockMin - 1
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Stock')).toBe(true)
+        expect(result.error.details[0].message.includes('at least'))
     })
 })
