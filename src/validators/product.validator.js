@@ -26,6 +26,7 @@ const schema = Joi.object({
         .label('Discount'),
     rating: Joi.number()
         .min(rules.ratingMin)
+        .max(rules.ratingMax)
         .label('Rating')
 })
 
