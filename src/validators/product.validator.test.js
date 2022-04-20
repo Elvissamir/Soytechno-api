@@ -131,4 +131,13 @@ describe('Product Validator', () => {
         expect(result.error.details[0].message.includes('Price')).toBe(true)
         expect(result.error.details[0].message.includes('number'))
     })
+
+    it('Should validate the stock is a number', () => {
+        data.inStock = 'not a number'
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Stock')).toBe(true)
+        expect(result.error.details[0].message.includes('number'))
+    })
 })
