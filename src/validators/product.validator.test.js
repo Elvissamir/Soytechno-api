@@ -176,4 +176,13 @@ describe('Product Validator', () => {
         expect(result.error.details[0].message.includes('Rating')).toBe(true)
         expect(result.error.details[0].message.includes('number'))
     })
+
+    it('Should validate the rating is more than or equal to the min value', () => {
+        data.rating = rules.ratingMin - 1
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Rating')).toBe(true)
+        expect(result.error.details[0].message.includes('at least'))
+    })
 })

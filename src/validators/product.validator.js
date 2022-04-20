@@ -24,7 +24,8 @@ const schema = Joi.object({
         .min(rules.discountMin)
         .max(rules.discountMax)
         .label('Discount'),
-    rating: Joi.any()
+    rating: Joi.number()
+        .label('Rating')
 })
 
 module.exports = function (productData) {
