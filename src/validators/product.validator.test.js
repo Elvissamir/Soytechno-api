@@ -185,4 +185,13 @@ describe('Product Validator', () => {
         expect(result.error.details[0].message.includes('Rating')).toBe(true)
         expect(result.error.details[0].message.includes('at least'))
     })
+
+    it('Should validate the rating is less than or equal to the max value', () => {
+        data.rating = rules.ratingMax + 1
+        const result = productValidator(data)
+
+        expect(result).toHaveProperty('error')
+        expect(result.error.details[0].message.includes('Rating')).toBe(true)
+        expect(result.error.details[0].message.includes('less than'))
+    })
 })
